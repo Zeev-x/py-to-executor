@@ -169,17 +169,27 @@ def worker():
     get_icon(url_icon)
     if os_system == "windows":
         portable_py()
-    main_file = get_main_file()
+
+    if len(sys.argv) >= 4:
+        main_file = sys.argv[1]
+        name_of_app = sys.argv[2]
+        windowed_option = sys.argv[3].lower()
+        windowed_option = "--windowed" if windowed_option in ("y", "yes", "window", "win", "windowed") else ""
+    else:
+        main_file = get_main_file()
+        name_of_app = input("Nama aplikasi: ").strip()
+        windowed_option = input("Apakah aplikasi ini windowed? (y/n): ").strip().lower()
+        windowed_option = "--windowed" if windowed_option == "y" else ""
+
     package_pip_project = get_requirements_or_detect(".")
-    name_of_app = input("Nama aplikasi: ").strip()
-    windowed_option = input("Apakah aplikasi ini windowed? (y/n): ").strip().lower()
-    windowed_option = "--windowed" if windowed_option == "y" else ""
+
     if os_system == "windows":
         data_filesx = [main_file, "pyr.exe"]
         data_dirx = ["reyette_py"]
         additional_data = get_all_data(data_filesx, data_dirx, ".")
     else:
         additional_data = get_all_data([main_file], [], ".")
+
     create_version_file(app_name=name_of_app, company="Reyette")
 
     print("=== Konfigurasi Build ===")
@@ -191,7 +201,12 @@ def worker():
         print("Data tambahan:")
         for data in additional_data:
             print(f" - {data}")
-    confirm = input("Lanjutkan build? (y/n): ").strip().lower()
+
+    if len(sys.argv) >= 4:
+        confirm = 'y'
+    else:
+        confirm = input("Lanjutkan build? (y/n): ").strip().lower()
+
     if confirm == 'y':
         run_cmd(main_file, name_of_app, windowed_option, additional_data, package_pip_project)
         if os_system == "windows":
