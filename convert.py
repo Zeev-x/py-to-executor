@@ -5,7 +5,7 @@ import shutil
 import platform
 
 env_path = "Reyette_Roxylious_Atelier"
-url_icon = "https://raw.githubusercontent.com/Zeev-x/reyette-dlr/refs/heads/main/logo/app_icon_square.ico"
+url_icon = "https://raw.githubusercontent.com/Zeev-x/py-to-executor/refs/heads/main/icon/icon.ico"
 os_system = platform.system().lower()
 script_name = os.path.basename(sys.argv[0])
 script_location = os.getcwd()
