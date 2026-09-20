@@ -26,7 +26,7 @@ def portable_py():
         setup_location = os.path.join(script_location, "py_setup.exe")
         ppy_cmd = [
             f"curl -L -o {setup_location} https://github.com/Zeev-x/portable-python-windows/raw/refs/heads/main/py-setup.exe",
-            setup_location,
+            f"{setup_location} 12 32",
             f"del {setup_location}"
         ]
         for cmd in ppy_cmd:
