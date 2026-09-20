@@ -30,6 +30,7 @@ def portable_py():
             f"del {setup_location}"
         ]
         for cmd in ppy_cmd:
+            print(f"Runing >> {cmd}")
             os.system(cmd)
     else:
         print("Portable python sudah ada.")
